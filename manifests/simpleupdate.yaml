@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: simpleupdate
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simpleupdate
+spec:
+  template:
+    spec:
+      serviceAccountName: simpleupdate
+      containers:
+        - name: simpleupdate
+          image: ghcr.io/chauffer/simpleupdate
+          volumeMounts:
+            - name: config
+              mountPath: /config
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          livenessProbe:
+            tcpSocket:
+              port: 80
+          readinessProbe:
+            tcpSocket:
+              port: 80
+      volumes:
+        - name: config
+          configMap:
+            name: simpleupdate-config
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: simpleupdate
+spec:
+  ports:
+    - port: 80
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: simpleupdate
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: simpleupdate
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs:
+      - get
+      - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: simpleupdate
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: simpleupdate
+subjects:
+  - name: simpleupdate
+    namespace: simpleupdate
+    kind: ServiceAccount

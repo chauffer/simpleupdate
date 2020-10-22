@@ -1,0 +1,19 @@
+name: Publish Docker Image
+on: [push]
+jobs:
+  dockerhub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+          registry: ghcr.io
+          repository: chauffer/simpleupdate
+          cache_froms: ghcr.io/chauffer/simpleupdate
+          tag_with_sha: true
+          tag_with_ref: true
