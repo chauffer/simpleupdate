@@ -1,0 +1,35 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+configurations:
+  - manifests/kustomizeconfig.yml
+namespace: simpleupdate
+commonLabels:
+  app: simpleupdate
+resources:
+  - manifests/simpleupdate.yml
+  - manifests/ingress.yml
+
+configMapGenerator:
+  - name: simpleupdate-config
+    namespace: simpleupdate
+    literals:
+      - SIMPLEUPDATE_CLUSTER_ISSUER=letsencrypt-prod
+      - SIMPLEUPDATE_HOST=simplepdate.example.com
+
+vars:
+  - name: SIMPLEUPDATE_CLUSTER_ISSUER
+    objref:
+      kind: ConfigMap
+      name: simpleupdate-config
+      namespace: simpleupdate
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.SIMPLEUPDATE_CLUSTER_ISSUER
+  - name: SIMPLEUPDATE_HOST
+    objref:
+      kind: ConfigMap
+      name: simpleupdate-config
+      namespace: simpleupdate
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.SIMPLEUPDATE_HOST

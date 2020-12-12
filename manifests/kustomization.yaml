@@ -1,5 +1,0 @@
-namespace: simpleupdate
-resources:
-  - simpleupdate.yaml
-commonLabels:
-  app: simpleupdate

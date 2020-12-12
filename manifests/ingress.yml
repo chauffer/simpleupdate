@@ -3,15 +3,14 @@ kind: Ingress
 metadata:
   name: simpleupdate
   annotations:
-    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: $(SIMPLEUPDATE_CLUSTER_ISSUER)
 spec:
   tls:
     - hosts:
-        - "simpleupdate.simone.sh"
+        - "$(SIMPLEUPDATE_HOST)"
       secretName: simpleupdate-tls
   rules:
-    - host: simpleupdate.simone.sh
+    - host: $(SIMPLEUPDATE_HOST)
       http:
         paths:
           - backend:
