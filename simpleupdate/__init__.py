@@ -18,7 +18,7 @@ AppsV1API = kubernetes.client.AppsV1Api(K8s)
 
 @app.route("/")
 def hello():
-    return "<a href='https://github.com/chauffer/simpleupdate'>simpleupdate</a>"
+    return "<a href='https://github.com/sim1/simpleupdate'>simpleupdate</a>"
 
 @app.route("/v0/<namespace>/<deployment>", methods=["POST"])
 def update_inplace(namespace, deployment):

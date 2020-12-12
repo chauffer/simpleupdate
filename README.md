@@ -41,7 +41,7 @@ Create these two files in your cluster's GitOps repo:
 ### `kustomization.yaml`
 ```
 bases:
-  - github.com/chauffer/simpleupdate/manifests?ref=master
+  - github.com/sim1/simpleupdate/manifests?ref=master
 namespace: simpleupdate
 
 resources:
@@ -65,7 +65,7 @@ configMapGenerator:
 ## Generating a Token
 
 ```
-docker run --rm ghcr.io/chauffer/simpleupdate generate_token.py
+docker run --rm ghcr.io/sim1/simpleupdate generate_token.py
 # or with a custom length
-docker run --rm -e LEN=48 ghcr.io/chauffer/simpleupdate generate_token.py
+docker run --rm -e LEN=48 ghcr.io/sim1/simpleupdate generate_token.py
 ```

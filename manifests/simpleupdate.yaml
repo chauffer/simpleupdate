@@ -13,7 +13,7 @@ spec:
       serviceAccountName: simpleupdate
       containers:
         - name: simpleupdate
-          image: ghcr.io/chauffer/simpleupdate
+          image: ghcr.io/sim1/simpleupdate
           volumeMounts:
             - name: config
               mountPath: /config
