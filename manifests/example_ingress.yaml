@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: simpleupdate
+  annotations:
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - "simpleupdate.simone.sh"
+      secretName: simpleupdate-tls
+  rules:
+    - host: simpleupdate.simone.sh
+      http:
+        paths:
+          - backend:
+              serviceName: simpleupdate
+              servicePort: 80
+            path: /
