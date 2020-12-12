@@ -13,7 +13,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
           registry: ghcr.io
-          repository: chauffer/simpleupdate
-          cache_froms: ghcr.io/chauffer/simpleupdate
+          repository: sim1/simpleupdate
+          cache_froms: ghcr.io/sim1/simpleupdate
           tag_with_sha: true
           tag_with_ref: true
