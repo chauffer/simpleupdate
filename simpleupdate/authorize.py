@@ -19,7 +19,11 @@ class Authorize:
 
         with open(self.config_file_path) as f:
             config_content = f.readlines()
-        for line in config_content:
+        for i, line in enumerate(config_content):
+            if line.startswith('#'):
+                print(f"Skipping line {i}")
+                continue
+
             row = line.split()
             self._config.append(
                 ConfigRow(
