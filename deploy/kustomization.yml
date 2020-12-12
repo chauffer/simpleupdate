@@ -1,0 +1,14 @@
+# Example deployment for simpleupdate
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+resources:
+  - github.com/sim1/simpleupdate?ref=master
+
+configMapGenerator:
+  - name: simpleupdate-config
+    namespace: simpleupdate
+    behavior: merge
+    envs:
+      - simpleupdate.env
+    files:
+      - simpleupdate-config.yml

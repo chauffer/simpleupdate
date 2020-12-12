@@ -36,29 +36,11 @@ curl -d "token" -X POST https://simpleupdate/v0/web/app/v2
 
 Deployment is only supported through Kustomize.
 
-Create these two files in your cluster's GitOps repo:
-
-### `kustomization.yaml`
-```
-bases:
-  - github.com/sim1/simpleupdate/manifests?ref=master
-namespace: simpleupdate
-
-resources:
-  - ingress.yaml  # bring your own ingress. namespace=simpleupdate service=simpleupdate
-
-configMapGenerator:
-  - name: simpleupdate-config
-    namespace: simpleupdate
-    files:
-    - simpleupdate-config.yml
-```
+See [deploy/](deploy/) for an example deployment.
 
 ### `simpleupdate-config.yaml`
 
 ```
-<bcrypt token> <namespace>/<deployment> [allowed_regex=.*]
-<bcrypt token> <namespace>/<deployment> [allowed_regex=.*]
 ...
 ```
 
